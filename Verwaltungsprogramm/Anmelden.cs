@@ -29,7 +29,7 @@ namespace Verwaltungsprogramm
                 return false;
             }
             else {
-                return i;
+                return true;
             }
         }
 
