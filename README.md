@@ -1,2 +1,2 @@
-# mecintosh
-Our school project
+# EBA Project
+School project for EBA
