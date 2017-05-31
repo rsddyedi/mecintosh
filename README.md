@@ -1,0 +1,2 @@
+# mecintosh
+Our school project
