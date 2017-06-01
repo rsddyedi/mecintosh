@@ -22,15 +22,30 @@ namespace Verwaltungsprogramm
             TBpassword.PasswordChar = '*';
         }
 
-        private bool checkArr(Array arr, string str)
+        private bool checkUser(string str)
         {
-            int i = Array.IndexOf(arr, str);
-            if(i < 0){
-                return false;
-            }
-            else {
+            if (str == "kostrukteur" || str == "lagerist" || str == "mitarbeiter")
+            {
                 return true;
             }
+            return false;
+        }
+
+        private bool checkPass(string user, string pass)
+        {
+            if (user == "kostrukteuer" && pass == "pass1")
+            {
+                return true;
+            }
+            else if (user == "lagerist" && pass == "pass2")
+            {
+                return true;
+            }
+            else if (user == "mitarbeiter" && pass == "pass3")
+            {
+                return true;
+            }
+            return false;
         }
 
         private void BSFLanmelden_Click(object sender, EventArgs e)
@@ -38,35 +53,36 @@ namespace Verwaltungsprogramm
             string user = TBusername.Text.ToString(),
             pass = TBpassword.Text.ToString();
 
-            bool validUser = user.All(c => valid.Contains(c)),
-            checkUser = checkArr(data, user);
-            
-            if (!validUser) // Überprüfe username auf ungültige Zeichen
+            bool typo = user.All(c => valid.Contains(c)),
+            check1 = checkUser(user), check2 = false;
+
+            if (typo)
             {
-                MessageBox.Show("Ungültige Zeichen im Nutzername. Bitte ändern.");
+                MessageBox.Show("Ungültiges Zeichen eingegeben");
                 reset();
             }
             else
             {
-                if (checkUser)  // Überprüfe username auf Validität im Array
+                if (check1) // Username check
                 {
-                    int i = Array.IndexOf(data, user);
-                    MessageBox.Show(Convert.ToString(i));
+                    check2 = checkPass(user, pass);
                 }
-                else
+
+                if (check2)
                 {
-                    MessageBox.Show("Falscher Nutzername eingegeben");
-                    reset();
+                    Hauptmenue menu = new Hauptmenue();
+                    menu(user);
                 }
             }
-                 
-            /*Hauptmenue menu = new Hauptmenue();
-            menu(user);*/
+           
+            
+            
+            
         }
 
         private void reset()
         {
-            // Reset whole window
+            
         }
     }
 }
