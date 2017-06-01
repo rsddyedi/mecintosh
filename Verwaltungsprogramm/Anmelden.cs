@@ -38,15 +38,35 @@ namespace Verwaltungsprogramm
             string user = TBusername.Text.ToString(),
             pass = TBpassword.Text.ToString();
 
-            int userPos = Array.IndexOf(data, user),
-            passPos = Array.IndexOf(data, pass);
-
-            bool checkUser = dataUser && dataPass,
-            validUser = user.All(c => valid.Contains(c));
-
-            if(validUser){
-                hauptmenue(user);
+            bool validUser = user.All(c => valid.Contains(c)),
+            checkUser = checkArr(data, user);
+            
+            if (!validUser) // Überprüfe username auf ungültige Zeichen
+            {
+                MessageBox.Show("Ungültige Zeichen im Nutzername. Bitte ändern.");
+                reset();
             }
+            else
+            {
+                if (checkUser)  // Überprüfe username auf Validität im Array
+                {
+                    int i = Array.IndexOf(data, user);
+                    MessageBox.Show(Convert.ToString(i));
+                }
+                else
+                {
+                    MessageBox.Show("Falscher Nutzername eingegeben");
+                    reset();
+                }
+            }
+                 
+            /*Hauptmenue menu = new Hauptmenue();
+            menu(user);*/
+        }
+
+        private void reset()
+        {
+            // Reset whole window
         }
     }
 }
